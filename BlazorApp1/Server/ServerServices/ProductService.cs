@@ -16,19 +16,22 @@ namespace BlazorApp1.Server.ServerServices
 
         public async Task<List<Product>> GetAllProducts()
         {
-            return await _dataContext.Products.ToListAsync();
+            return await _dataContext.Products.Include(e => e.ProductVariants).ToListAsync();
         }
 
         public async Task<Product> GetProduct(int id)
         {
-            Product product = await _dataContext.Products.Include(e => e.Editions).FirstOrDefaultAsync(p => p.Id == id);
+            Product product =  await _dataContext.Products
+                .Include(e => e.ProductVariants)
+                .ThenInclude(v => v.Edition)
+                .FirstOrDefaultAsync(p => p.Id == id);
             return product;
         }
 
         public async Task<List<Product>> GetProductsByCategory(string categoryUrl)
         {
             Category category = await _categoryService.GetCategoryByUrl(categoryUrl);
-            return await _dataContext.Products.Where(p => p.CategoryId == category.Id).ToListAsync();
+            return await _dataContext.Products.Include(p => p.ProductVariants).Where(p => p.CategoryId == category.Id).ToListAsync();
         }
     }
 }
