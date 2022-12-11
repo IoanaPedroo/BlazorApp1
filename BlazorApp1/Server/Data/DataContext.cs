@@ -12,9 +12,24 @@ namespace BlazorApp1.Server.Data
 
         public DbSet<Category> Categories { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Edition> Editions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Edition>().HasData(
+                new Edition { Id = 1, Name = "Paperback"},
+                new Edition { Id = 2, Name = "E-book" },
+                new Edition { Id = 3, Name = "Audiobook" },
+                new Edition { Id = 4, Name = "Pc" },
+                new Edition { Id = 5, Name = "Xbox" }
+                );
+
+            modelBuilder.SharedTypeEntity<Dictionary<string, object>>("EditionProduct").HasData(
+                new { EditionsId = 1, ProductsId = 1},
+                new { EditionsId = 2, ProductsId = 1 },
+                new { EditionsId = 1, ProductsId = 2 }
+                );
+
             modelBuilder.Entity<Product>().HasData(
                 new Product
                 {

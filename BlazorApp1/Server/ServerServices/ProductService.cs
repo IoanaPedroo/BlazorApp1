@@ -21,7 +21,7 @@ namespace BlazorApp1.Server.ServerServices
 
         public async Task<Product> GetProduct(int id)
         {
-            Product product = await _dataContext.Products.FirstOrDefaultAsync(p => p.Id == id);
+            Product product = await _dataContext.Products.Include(e => e.Editions).FirstOrDefaultAsync(p => p.Id == id);
             return product;
         }
 
