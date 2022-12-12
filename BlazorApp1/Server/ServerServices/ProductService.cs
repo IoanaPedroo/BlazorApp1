@@ -37,5 +37,12 @@ namespace BlazorApp1.Server.ServerServices
             Category category = await _categoryService.GetCategoryByUrl(categoryUrl);
             return await _dataContext.Products.Include(p => p.ProductVariants).Where(p => p.CategoryId == category.Id).ToListAsync();
         }
+
+        public async Task<List<Product>> SearchProduct(string searchText)
+        {
+            return await _dataContext.Products
+                .Where(p => p.Title.Contains(searchText) || p.Description.Contains(searchText))
+                .ToListAsync(); 
+        }
     }
 }

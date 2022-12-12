@@ -9,5 +9,7 @@ namespace BlazorApp1.Client.Services
         Task LoadProducts(string? categoryUrl = null);
 
         Task<Product> LoadProduct(int id);
+
+        Task<List<Product>> SearchProduct(string searchText);
     }
 }
