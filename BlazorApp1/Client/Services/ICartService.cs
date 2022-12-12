@@ -9,5 +9,7 @@ namespace BlazorApp1.Client.Services
         Task<List<CartItem>> GetCartItems();
         Task DeleteItem(CartItem item);
         Task EmptyCart();
+        Task<string> Checkout();
+
     }
 }

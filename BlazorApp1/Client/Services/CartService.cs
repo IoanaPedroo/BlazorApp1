@@ -1,6 +1,7 @@
 ﻿using BlazorApp1.Shared;
 using Blazored.LocalStorage;
 using Blazored.Toast.Services;
+using System.Net.Http.Json;
 
 namespace BlazorApp1.Client.Services
 {
@@ -44,6 +45,13 @@ namespace BlazorApp1.Client.Services
             var product = await _productService.LoadProduct(item.ProductId);
             _toastService.ShowSuccess(product.Title, "Added to cart:");
             OnChange.Invoke();
+        }
+
+        public async Task<string> Checkout()
+        {
+            var result = await _httpClient.PostAsJsonAsync("api/payment/checkout", await GetCartItems());
+            var url =  await result.Content.ReadAsStringAsync();
+            return url;
         }
 
         public async Task DeleteItem(CartItem item)
