@@ -24,6 +24,8 @@ namespace BlazorApp1.Shared
         public DateTime DateCreated { get; set; } = DateTime.Now;
         public DateTime DateUpdated { get; set; } = DateTime.Now;
 
+        public int Views { get; set; }
+
 
 
 

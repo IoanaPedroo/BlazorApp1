@@ -25,6 +25,10 @@ namespace BlazorApp1.Server.ServerServices
                 .Include(e => e.ProductVariants)
                 .ThenInclude(v => v.Edition)
                 .FirstOrDefaultAsync(p => p.Id == id);
+
+            product.Views++;
+            await _dataContext.SaveChangesAsync();
+
             return product;
         }
 

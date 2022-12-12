@@ -4,6 +4,9 @@
 @inject IToastService ToastService
 @inject ICartService CartService
 
+<div class="views">
+    <i class="oi oi-eye"></i>@product.Views.ToString("0##");
+</div>
 <div class="media">
     <div class="media-big-image-wrapper mr-2">
         <img class="media-big-image" src="@product.Image" alt="@product.Title" />
